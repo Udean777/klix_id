@@ -3,50 +3,62 @@ import 'package:flutter/material.dart';
 import 'package:klix_id/common/helper/navigation/app_navigation.dart';
 import 'package:klix_id/common/widgets/reactive_button/reactive_button.dart';
 import 'package:klix_id/core/configs/theme/app_colors.dart';
+import 'package:klix_id/data/auth/models/signup_req_params.dart';
+import 'package:klix_id/domain/auth/usecases/signup_usecase.dart';
 import 'package:klix_id/presentation/auth/pages/signin_page.dart';
+import 'package:klix_id/service_locator.dart';
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+  SignupPage({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/splash-bg.png"),
-            fit: BoxFit.cover,
-            opacity: 0.05,
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/splash-bg.png"),
+              fit: BoxFit.cover,
+              opacity: 0.05,
+            ),
           ),
-        ),
-        child: SafeArea(
-          minimum: const EdgeInsets.only(
-            top: 100,
-            right: 16,
-            left: 16,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _signUpText(),
-              const SizedBox(
-                height: 30.0,
-              ),
-              _emailField(),
-              const SizedBox(
-                height: 16.0,
-              ),
-              _passwordField(),
-              const SizedBox(
-                height: 30.0,
-              ),
-              _signUpButton(),
-              const SizedBox(
-                height: 16.0,
-              ),
-              _signInText(context),
-            ],
+          child: SafeArea(
+            minimum: const EdgeInsets.only(
+              top: 100,
+              right: 16,
+              left: 16,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _signUpText(),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                _emailField(),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                _passwordField(),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                _signUpButton(),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                _signInText(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -57,7 +69,14 @@ class SignupPage extends StatelessWidget {
     return ReactiveButton(
       title: "Sign Up",
       activeColor: AppColors.primary,
-      onPressed: () async {},
+      onPressed: () async {
+        await sl<SignupUsecase>().call(
+          params: SignupReqParams(
+            email: _emailController.text,
+            password: _passwordController.text,
+          ),
+        );
+      },
       onSuccess: () {},
       onFailure: (error) {},
     );
@@ -100,6 +119,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _emailField() {
     return TextField(
+      controller: _emailController,
       decoration: InputDecoration(
         hintText: "Email",
       ),
@@ -108,6 +128,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _passwordField() {
     return TextField(
+      controller: _passwordController,
       decoration: InputDecoration(
         hintText: "Password",
       ),

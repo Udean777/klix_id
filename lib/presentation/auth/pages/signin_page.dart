@@ -11,42 +11,48 @@ class SigninPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/splash-bg.png"),
-            fit: BoxFit.cover,
-            opacity: 0.05,
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/splash-bg.png"),
+              fit: BoxFit.cover,
+              opacity: 0.05,
+            ),
           ),
-        ),
-        child: SafeArea(
-          minimum: const EdgeInsets.only(
-            top: 100,
-            right: 16,
-            left: 16,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _signInText(),
-              const SizedBox(
-                height: 30.0,
-              ),
-              _emailField(),
-              const SizedBox(
-                height: 16.0,
-              ),
-              _passwordField(),
-              const SizedBox(
-                height: 30.0,
-              ),
-              _signInButton(),
-              const SizedBox(
-                height: 16.0,
-              ),
-              _signUpText(context),
-            ],
+          child: SafeArea(
+            minimum: const EdgeInsets.only(
+              top: 100,
+              right: 16,
+              left: 16,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _signInText(),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                _emailField(),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                _passwordField(),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                _signInButton(),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                _signUpText(context),
+              ],
+            ),
           ),
         ),
       ),
