@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/configs/theme/app_theme.dart';
+import 'presentation/splash/bloc/splash_cubit.dart';
 import 'presentation/splash/pages/splash.dart';
 
 void main() {
@@ -18,11 +20,14 @@ class MyApp extends StatelessWidget {
       ),
     );
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.appTheme,
-      home: const SplashPage(),
+    return BlocProvider(
+      create: (context) => SplashCubit()..appStarted(),
+      child: MaterialApp(
+        title: 'Klix ID',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.appTheme,
+        home: const SplashPage(),
+      ),
     );
   }
 }
