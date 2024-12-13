@@ -1,12 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:klix_id/common/helper/message/display_message.dart';
 import 'package:klix_id/common/helper/navigation/app_navigation.dart';
 import 'package:klix_id/common/widgets/reactive_button/reactive_button.dart';
 import 'package:klix_id/core/configs/theme/app_colors.dart';
+import 'package:klix_id/data/auth/models/signin_req_params.dart';
+import 'package:klix_id/domain/auth/usecases/signin_usecase.dart';
 import 'package:klix_id/presentation/auth/pages/signup_page.dart';
+import 'package:klix_id/service_locator.dart';
+import 'package:klix_id/presentation/home/pages/home_page.dart';
 
 class SigninPage extends StatelessWidget {
-  const SigninPage({super.key});
+  SigninPage({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +54,7 @@ class SigninPage extends StatelessWidget {
                 const SizedBox(
                   height: 30.0,
                 ),
-                _signInButton(),
+                _signInButton(context),
                 const SizedBox(
                   height: 16.0,
                 ),
@@ -59,13 +67,28 @@ class SigninPage extends StatelessWidget {
     );
   }
 
-  Widget _signInButton() {
+  Widget _signInButton(BuildContext context) {
     return ReactiveButton(
       title: "Sign In",
       activeColor: AppColors.primary,
-      onPressed: () async {},
-      onSuccess: () {},
-      onFailure: (error) {},
+      onPressed: () async {
+        await sl<SigninUsecase>().call(
+          params: SigninReqParams(
+            email: _emailController.text,
+            password: _passwordController.text,
+          ),
+        );
+      },
+      onSuccess: () {
+        AppNavigation.pushAndRemove(
+          context,
+          HomePage(),
+        );
+      },
+      onFailure: (error) {
+        DisplayMessage.errorMessage(error, context);
+        print(error);
+      },
     );
   }
 
@@ -106,6 +129,7 @@ class SigninPage extends StatelessWidget {
 
   Widget _emailField() {
     return TextField(
+      controller: _emailController,
       decoration: InputDecoration(
         hintText: "Email",
       ),
@@ -114,6 +138,7 @@ class SigninPage extends StatelessWidget {
 
   Widget _passwordField() {
     return TextField(
+      controller: _passwordController,
       decoration: InputDecoration(
         hintText: "Password",
       ),

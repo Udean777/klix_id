@@ -1,11 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:klix_id/common/helper/message/display_message.dart';
 import 'package:klix_id/common/helper/navigation/app_navigation.dart';
 import 'package:klix_id/common/widgets/reactive_button/reactive_button.dart';
 import 'package:klix_id/core/configs/theme/app_colors.dart';
 import 'package:klix_id/data/auth/models/signup_req_params.dart';
 import 'package:klix_id/domain/auth/usecases/signup_usecase.dart';
 import 'package:klix_id/presentation/auth/pages/signin_page.dart';
+import 'package:klix_id/presentation/home/pages/home_page.dart';
 import 'package:klix_id/service_locator.dart';
 
 class SignupPage extends StatelessWidget {
@@ -52,7 +54,7 @@ class SignupPage extends StatelessWidget {
                 const SizedBox(
                   height: 30.0,
                 ),
-                _signUpButton(),
+                _signUpButton(context),
                 const SizedBox(
                   height: 16.0,
                 ),
@@ -65,7 +67,7 @@ class SignupPage extends StatelessWidget {
     );
   }
 
-  Widget _signUpButton() {
+  Widget _signUpButton(BuildContext context) {
     return ReactiveButton(
       title: "Sign Up",
       activeColor: AppColors.primary,
@@ -77,8 +79,15 @@ class SignupPage extends StatelessWidget {
           ),
         );
       },
-      onSuccess: () {},
-      onFailure: (error) {},
+      onSuccess: () {
+        AppNavigation.pushAndRemove(
+          context,
+          HomePage(),
+        );
+      },
+      onFailure: (error) {
+        DisplayMessage.errorMessage(error, context);
+      },
     );
   }
 
