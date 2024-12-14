@@ -21,5 +21,5 @@ void setupServiceLocator() {
   // Usecases
   sl.registerSingleton<SignupUsecase>(SignupUsecase());
   sl.registerSingleton<SigninUsecase>(SigninUsecase());
-  sl.registerSingleton<IsLoggedIn>(IsLoggedIn());
+  sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());
 }

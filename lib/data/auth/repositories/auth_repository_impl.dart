@@ -10,42 +10,36 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Either> signUp(SignupReqParams params) async {
     var data = await sl<AuthApiService>().signUp(params);
-    return data.fold(
-      (error) => Left(error),
-      (data) async {
-        final SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-        sharedPreferences.setString("key", data["user"]["token"]);
+    return data.fold((error) {
+      return Left(error);
+    }, (data) async {
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString('token', data['user']['token']);
+      print('Token disimpan: ${data['user']['token']}');
 
-        return Right(data);
-      },
-    );
+      return Right(data);
+    });
   }
 
   @override
   Future<Either> signIn(SigninReqParams params) async {
     var data = await sl<AuthApiService>().signIn(params);
-    return data.fold(
-      (error) => Left(error),
-      (data) async {
-        final SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-        sharedPreferences.setString("key", data["user"]["token"]);
-
-        return Right(data);
-      },
-    );
+    return data.fold((error) {
+      return Left(error);
+    }, (data) async {
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString('token', data['user']['token']);
+      return Right(data);
+    });
   }
 
   @override
   Future<bool> isLoggedIn() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString("token");
-    if (token == null) {
-      return false;
-    } else {
-      return true;
-    }
+    final sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('token');
+    print('Token ditemukan: $token');
+    return token != null;
   }
 }
