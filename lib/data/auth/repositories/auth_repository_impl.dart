@@ -16,6 +16,7 @@ class AuthRepositoryImpl extends AuthRepository {
       final SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString('token', data['user']['token']);
+      // ignore: avoid_print
       print('Token disimpan: ${data['user']['token']}');
 
       return Right(data);
@@ -39,6 +40,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<bool> isLoggedIn() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
+    // ignore: avoid_print
     print('Token ditemukan: $token');
     return token != null;
   }

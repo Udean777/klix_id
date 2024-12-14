@@ -1,35 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:klix_id/common/widgets/app_bar.dart';
+import 'package:klix_id/core/configs/assets/app_vectors.dart';
+import 'package:klix_id/presentation/home/widgets/trending_movies.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  String? token;
-
-  Future<void> _checkToken() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      token = sharedPreferences.getString('token');
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _checkToken();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Home Page")),
-      body: Center(
-        child: Text("Token: ${token ?? "Tidak ditemukan"}"),
+      appBar: BasicAppbar(
+        hideBack: true,
+        leading: SvgPicture.asset(
+          AppVectors.logo,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            TrendingMovies(),
+          ],
+        ),
       ),
     );
   }

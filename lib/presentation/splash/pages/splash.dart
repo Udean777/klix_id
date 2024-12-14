@@ -47,6 +47,7 @@ class SplashPage extends StatelessWidget {
                   begin: Alignment.center,
                   end: Alignment.bottomCenter,
                   colors: [
+                    // ignore: deprecated_member_use
                     const Color(0xff1A1B20).withOpacity(0),
                     const Color(0xff1A1B20)
                   ],
