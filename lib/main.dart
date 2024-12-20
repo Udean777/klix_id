@@ -9,7 +9,9 @@ import 'presentation/splash/pages/splash.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {

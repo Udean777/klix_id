@@ -41,23 +41,12 @@ class SigninPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 16.0,
               children: [
                 _signInText(),
-                const SizedBox(
-                  height: 30.0,
-                ),
                 _emailField(),
-                const SizedBox(
-                  height: 16.0,
-                ),
                 _passwordField(),
-                const SizedBox(
-                  height: 30.0,
-                ),
                 _signInButton(context),
-                const SizedBox(
-                  height: 16.0,
-                ),
                 _signUpText(context),
               ],
             ),

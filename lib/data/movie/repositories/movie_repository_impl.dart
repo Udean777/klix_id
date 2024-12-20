@@ -15,7 +15,7 @@ class MovieRepositoryImpl extends MovieRepository {
         return Left(error);
       },
       (data) {
-        var movies = List.from(data["content"])
+        var movies = List.from(data["data"])
             .map(
               (item) => MovieMapper.toEntity(
                 MovieModel.fromJson(item),
