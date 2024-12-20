@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klix_id/common/widgets/carousel/image_slider.dart';
+import 'package:klix_id/common/widgets/carousel/image_carousel.dart';
 import 'package:klix_id/core/configs/assets/app_images.dart';
 import 'package:klix_id/core/configs/theme/app_colors.dart';
 import 'package:klix_id/presentation/home/bloc/trending_cubit.dart';
@@ -22,18 +22,11 @@ class TrendingMovies extends StatelessWidget {
           }
 
           if (state is TrendingMoviesLoaded) {
-            return FanCarouselImageSlider.sliderType1(
-              imagesLink: state.movies
-                  .map(
-                    (item) =>
-                        AppImages.movieImageBasePath +
-                        item.posterPath.toString(),
-                  )
+            return ImageCarousel(
+              imageUrls: state.movies
+                  .map((item) =>
+                      AppImages.movieImageBasePath + item.posterPath.toString())
                   .toList(),
-              isAssets: false,
-              autoPlay: false,
-              sliderHeight: 400,
-              showIndicator: true,
             );
           }
 

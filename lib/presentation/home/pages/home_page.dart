@@ -22,9 +22,12 @@ class HomePage extends StatelessWidget {
           children: [
             TrendingMovies(),
             SizedBox(
-              height: 16,
+              height: 50,
             ),
             PopularTv(),
+            SizedBox(
+              height: 50,
+            ),
           ],
         ),
       ),
