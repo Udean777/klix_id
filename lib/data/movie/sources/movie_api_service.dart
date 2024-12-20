@@ -6,6 +6,11 @@ import 'package:klix_id/service_locator.dart';
 
 abstract class MovieApiService {
   Future<Either> getTrendingMovies();
+  Future<Either> getNowPlayingMovies();
+  Future<Either> getMovieTrailer(int movieId);
+  Future<Either> getRecommendationMovies(int movieId);
+  Future<Either> getSimilarMovies(int movieId);
+  Future<Either> searchMovie(String query);
 }
 
 class MovieApiServiceImpl extends MovieApiService {
@@ -14,6 +19,71 @@ class MovieApiServiceImpl extends MovieApiService {
     try {
       var res = await sl<DioClient>().get(
         ApiUrl.trendingMovies,
+      );
+
+      return Right(res.data);
+    } on DioException catch (e) {
+      return Left(e.response!.data["message"]);
+    }
+  }
+
+  @override
+  Future<Either> getMovieTrailer(int movieId) async {
+    try {
+      var res = await sl<DioClient>().get(
+        '${ApiUrl.movie}$movieId/trailer',
+      );
+
+      return Right(res.data);
+    } on DioException catch (e) {
+      return Left(e.response!.data["message"]);
+    }
+  }
+
+  @override
+  Future<Either> getNowPlayingMovies() async {
+    try {
+      var res = await sl<DioClient>().get(
+        ApiUrl.nowPlayingMovies,
+      );
+
+      return Right(res.data);
+    } on DioException catch (e) {
+      return Left(e.response!.data["message"]);
+    }
+  }
+
+  @override
+  Future<Either> getRecommendationMovies(int movieId) async {
+    try {
+      var res = await sl<DioClient>().get(
+        '${ApiUrl.movie}$movieId/recommendations',
+      );
+
+      return Right(res.data);
+    } on DioException catch (e) {
+      return Left(e.response!.data["message"]);
+    }
+  }
+
+  @override
+  Future<Either> getSimilarMovies(int movieId) async {
+    try {
+      var res = await sl<DioClient>().get(
+        '${ApiUrl.movie}$movieId/similar',
+      );
+
+      return Right(res.data);
+    } on DioException catch (e) {
+      return Left(e.response!.data["message"]);
+    }
+  }
+
+  @override
+  Future<Either> searchMovie(String query) async {
+    try {
+      var res = await sl<DioClient>().get(
+        '${ApiUrl.search}movie/$query',
       );
 
       return Right(res.data);

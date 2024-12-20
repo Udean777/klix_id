@@ -11,7 +11,12 @@ import 'package:klix_id/domain/auth/usecases/is_logged_in.dart';
 import 'package:klix_id/domain/auth/usecases/signin_usecase.dart';
 import 'package:klix_id/domain/auth/usecases/signup_usecase.dart';
 import 'package:klix_id/domain/movie/repositories/movie_repository.dart';
+import 'package:klix_id/domain/movie/usecases/get_movie_trailer_usecase.dart';
+import 'package:klix_id/domain/movie/usecases/get_now_playing_usecase.dart';
+import 'package:klix_id/domain/movie/usecases/get_reccommendations_movies_usecase.dart';
+import 'package:klix_id/domain/movie/usecases/get_similar_movies_usecase.dart';
 import 'package:klix_id/domain/movie/usecases/get_trending_movies_usecase.dart';
+import 'package:klix_id/domain/movie/usecases/search_movie.dart';
 import 'package:klix_id/domain/tv/repositories/tv_repository.dart';
 import 'package:klix_id/domain/tv/usecases/get_popular_tv_usecase.dart';
 import 'package:klix_id/domain/tv/usecases/get_recommendations_tv_usecase.dart';
@@ -42,6 +47,12 @@ void setupServiceLocator() {
 
   // Movie Usecases
   sl.registerSingleton<GetTrendingMoviesUsecase>(GetTrendingMoviesUsecase());
+  sl.registerSingleton<GetMovieTrailerUsecase>(GetMovieTrailerUsecase());
+  sl.registerSingleton<GetSimilarMoviesUsecase>(GetSimilarMoviesUsecase());
+  sl.registerSingleton<GetReccommendationsMoviesUsecase>(
+      GetReccommendationsMoviesUsecase());
+  sl.registerSingleton<GetNowPlayingUsecase>(GetNowPlayingUsecase());
+  sl.registerSingleton<SearchMovie>(SearchMovie());
 
   // Tv Usecases
   sl.registerSingleton<GetPopularTVUseCase>(GetPopularTVUseCase());
