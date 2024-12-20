@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Popular TV Shows',
+                    'Now Playing Movies',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

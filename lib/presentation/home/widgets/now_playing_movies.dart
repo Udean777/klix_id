@@ -30,7 +30,6 @@ class NowPlayingMovies extends StatelessWidget {
                 },
                 scrollDirection: Axis.horizontal,
                 itemCount: state.data.length,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
                 separatorBuilder: (context, index) => const SizedBox(width: 10),
               ),
             );

@@ -41,6 +41,7 @@ dependencies:
   shared_preferences: ^2.3.3
   get_it:
   flutter_svg:
+  youtube_player_flutter: ^9.1.1
 
 dev_dependencies:
   flutter_test:
