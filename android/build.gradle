@@ -5,6 +5,14 @@ allprojects {
     }
 }
 
+buildscript {
+    configurations.all {
+        resolutionStrategy {
+            force 'com.pichillilorenzo.flutter_inappwebview:flutter_inappwebview:5.8.0'  // Use the latest version
+        }
+    }
+}
+
 rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"

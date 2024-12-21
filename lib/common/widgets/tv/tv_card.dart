@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:klix_id/common/helper/navigation/app_navigation.dart';
 import 'package:klix_id/core/configs/theme/app_colors.dart';
 import 'package:klix_id/domain/tv/entities/tv_entity.dart';
+import 'package:klix_id/presentation/trailers/pages/tv_details.dart';
 
 class TvCard extends StatelessWidget {
   const TvCard({
@@ -14,7 +16,14 @@ class TvCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        AppNavigation.push(
+          context,
+          TvDetails(
+            tv: tvEntity,
+          ),
+        );
+      },
       child: Container(
         width: 180,
         decoration: BoxDecoration(
@@ -36,10 +45,7 @@ class TvCard extends StatelessWidget {
                     ),
                     fit: BoxFit.fill,
                   ),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),

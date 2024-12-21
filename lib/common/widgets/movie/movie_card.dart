@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:klix_id/common/helper/navigation/app_navigation.dart';
 import 'package:klix_id/core/configs/theme/app_colors.dart';
 
 import 'package:klix_id/domain/movie/entities/movie_entity.dart';
+import 'package:klix_id/presentation/trailers/pages/movie_details.dart';
 
 class MovieCard extends StatelessWidget {
   const MovieCard({
@@ -15,7 +17,14 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        AppNavigation.push(
+          context,
+          MovieDetails(
+            movie: movieEntity,
+          ),
+        );
+      },
       child: Container(
         width: 180,
         decoration: BoxDecoration(
@@ -31,9 +40,7 @@ class MovieCard extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8)),
+                  borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
                     image: NetworkImage(
                       movieEntity.providePosterPath(),
