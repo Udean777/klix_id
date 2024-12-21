@@ -38,7 +38,7 @@ class TvKeywords extends StatelessWidget {
                   .map(
                     (keyword) => Chip(
                       label: Text(keyword.name!),
-                      backgroundColor: Colors.grey[300],
+                      // backgroundColor: Colors.grey[300],
                     ),
                   )
                   .toList(),

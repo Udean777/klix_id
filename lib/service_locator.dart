@@ -52,7 +52,7 @@ void setupServiceLocator() {
   sl.registerSingleton<GetReccommendationsMoviesUsecase>(
       GetReccommendationsMoviesUsecase());
   sl.registerSingleton<GetNowPlayingUsecase>(GetNowPlayingUsecase());
-  sl.registerSingleton<SearchMovie>(SearchMovie());
+  sl.registerSingleton<SearchMovieUsecase>(SearchMovieUsecase());
 
   // Tv Usecases
   sl.registerSingleton<GetPopularTVUseCase>(GetPopularTVUseCase());
