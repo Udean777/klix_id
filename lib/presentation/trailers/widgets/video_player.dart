@@ -24,7 +24,7 @@ class VideoPlayer extends StatelessWidget {
             }
 
             if (state is TrailerLoaded) {
-              return YoutubePlayer(
+              return YoutubePlayer(     
                 controller: state.controller,
                 showVideoProgressIndicator: true,
               );
