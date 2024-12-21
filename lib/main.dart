@@ -5,6 +5,7 @@ import 'package:klix_id/service_locator.dart';
 import 'core/configs/theme/app_theme.dart';
 import 'presentation/splash/bloc/splash_cubit.dart';
 import 'presentation/splash/pages/splash.dart';
+import 'common/bloc/generic_data_cubit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,8 +25,15 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.transparent,
       ),
     );
-    return BlocProvider(
-      create: (context) => SplashCubit()..appStarted(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SplashCubit()..appStarted(),
+        ),
+        BlocProvider(
+          create: (context) => GenericDataCubit(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.appTheme,

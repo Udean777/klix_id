@@ -40,10 +40,26 @@ class PopularTv extends StatelessWidget {
           }
 
           if (state is DataError) {
-            return Center(child: Text(state.message));
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(state.message),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<GenericDataCubit>().loadData<List<TVEntity>>(
+                            sl<GetPopularTVUseCase>(),
+                          );
+                    },
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ),
+            );
           }
 
-          return Container();
+          return const SizedBox.shrink();
         },
       ),
     );

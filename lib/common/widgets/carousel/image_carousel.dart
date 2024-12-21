@@ -9,7 +9,7 @@ class ImageCarousel extends StatefulWidget {
   const ImageCarousel({
     super.key,
     required this.imageUrls,
-    this.height = 500,
+    this.height = 400,
     this.autoPlayInterval = const Duration(seconds: 3),
   });
 
@@ -39,6 +39,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
       children: [
         SizedBox(
           height: widget.height,
+          width: widget.height * 0.85,
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (index) {
@@ -95,6 +96,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
                 shape: BoxShape.circle,
                 color: _currentPage == index
                     ? AppColors.primary
+                    // ignore: deprecated_member_use
                     : AppColors.primary.withOpacity(0.3),
               ),
             ),

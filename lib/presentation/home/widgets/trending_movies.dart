@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klix_id/common/bloc/generic_data_cubit.dart';
 import 'package:klix_id/common/widgets/carousel/image_carousel.dart';
 import 'package:klix_id/core/configs/assets/app_images.dart';
-import 'package:klix_id/core/configs/theme/app_colors.dart';
+import 'package:klix_id/domain/movie/entities/movie_entity.dart';
+import 'package:klix_id/domain/movie/usecases/get_trending_movies_usecase.dart';
 import 'package:klix_id/presentation/home/bloc/trending_cubit.dart';
 import 'package:klix_id/presentation/home/bloc/trending_state.dart';
+import 'package:klix_id/service_locator.dart';
 
 class TrendingMovies extends StatelessWidget {
   const TrendingMovies({super.key});
@@ -24,26 +27,38 @@ class TrendingMovies extends StatelessWidget {
           if (state is TrendingMoviesLoaded) {
             return ImageCarousel(
               imageUrls: state.movies
-                  .map((item) =>
-                      AppImages.movieImageBasePath + item.posterPath.toString())
+                  .map(
+                    (item) =>
+                        AppImages.movieImageBasePath +
+                        item.posterPath.toString(),
+                  )
                   .toList(),
             );
           }
 
           if (state is FailureLoadTrendingMovies) {
             return Center(
-              child: Text(
-                state.errorMessage,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(state.errorMessage),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      context
+                          .read<GenericDataCubit>()
+                          .loadData<List<MovieEntity>>(
+                            sl<GetTrendingMoviesUsecase>(),
+                          );
+                    },
+                    child: Text('Retry'),
+                  ),
+                ],
               ),
             );
           }
 
-          return Container();
+          return SizedBox.shrink();
         },
       ),
     );

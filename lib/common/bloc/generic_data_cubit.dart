@@ -5,7 +5,8 @@ import 'package:klix_id/core/usecase/usecase.dart';
 class GenericDataCubit extends Cubit<GenericDataState> {
   GenericDataCubit() : super(DataLoading());
 
-  void loadData<T>(Usecase usecase, {dynamic params}) async {
+  Future<void> loadData<T>(Usecase usecase, {dynamic params}) async {
+    emit(DataLoading());
     var data = await usecase.call(params: params);
 
     data.fold(

@@ -24,9 +24,19 @@ class VideoPlayer extends StatelessWidget {
             }
 
             if (state is TrailerLoaded) {
-              return YoutubePlayer(     
-                controller: state.controller,
-                showVideoProgressIndicator: true,
+              return ClipRRect(
+                borderRadius:
+                    BorderRadius.circular(12), // Adjust radius as needed
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: YoutubePlayer(
+                    controller: state.controller,
+                    showVideoProgressIndicator: true,
+                  ),
+                ),
               );
             }
 
