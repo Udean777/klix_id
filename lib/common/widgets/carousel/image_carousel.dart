@@ -5,12 +5,14 @@ class ImageCarousel extends StatefulWidget {
   final List<String> imageUrls;
   final double height;
   final Duration autoPlayInterval;
+  final Function(int index)? onImageTap;
 
   const ImageCarousel({
     super.key,
     required this.imageUrls,
     this.height = 400,
     this.autoPlayInterval = const Duration(seconds: 3),
+    this.onImageTap,
   });
 
   @override
@@ -63,34 +65,41 @@ class _ImageCarouselState extends State<ImageCarousel> {
             },
             itemBuilder: (context, index) {
               final actualIndex = index % widget.imageUrls.length;
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.network(
-                    widget.imageUrls[actualIndex],
-                    fit: BoxFit.fill,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.grey[300],
-                        child: const Icon(
-                          Icons.error_outline,
-                          color: Colors.red,
-                          size: 40,
-                        ),
-                      );
-                    },
+              return GestureDetector(
+                onTap: () {
+                  if (widget.onImageTap != null) {
+                    widget.onImageTap!(actualIndex);
+                  }
+                },
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.network(
+                      widget.imageUrls[actualIndex],
+                      fit: BoxFit.fill,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey[300],
+                          child: const Icon(
+                            Icons.error_outline,
+                            color: Colors.red,
+                            size: 40,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               );
