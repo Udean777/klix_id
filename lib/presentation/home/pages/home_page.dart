@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:klix_id/common/bloc/generic_data_cubit.dart';
 import 'package:klix_id/common/helper/navigation/app_navigation.dart';
 import 'package:klix_id/common/widgets/app_bar.dart';
-import 'package:klix_id/core/configs/assets/app_vectors.dart';
 import 'package:klix_id/domain/movie/entities/movie_entity.dart';
 import 'package:klix_id/domain/movie/usecases/get_now_playing_usecase.dart';
 import 'package:klix_id/domain/movie/usecases/get_trending_movies_usecase.dart';
@@ -54,7 +52,13 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-        title: SvgPicture.asset(AppVectors.logo),
+        title: Text(
+          'Klix ID',
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: RefreshIndicator(
         onRefresh: () => _refreshData(context),

@@ -139,6 +139,7 @@ class SignupPage extends StatelessWidget {
       decoration: InputDecoration(
         hintText: "Password",
       ),
+      obscureText: true,
     );
   }
 }

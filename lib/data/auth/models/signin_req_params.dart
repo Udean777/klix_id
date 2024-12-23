@@ -10,7 +10,7 @@ class SigninReqParams {
   });
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'email': email,
       'password': password,
     };

@@ -41,7 +41,7 @@ class AuthRepositoryImpl extends AuthRepository {
     final sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     // ignore: avoid_print
-    print('Token ditemukan: $token');
+    // print('Token ditemukan: $token');
     return token != null;
   }
 }

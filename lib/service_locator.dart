@@ -40,7 +40,7 @@ void setupServiceLocator() {
   sl.registerSingleton<MovieRepository>(MovieRepositoryImpl());
   sl.registerSingleton<TvRepository>(TvRepositoryImpl());
 
-  // Usecases
+  // Auth Usecases
   sl.registerSingleton<SignupUsecase>(SignupUsecase());
   sl.registerSingleton<SigninUsecase>(SigninUsecase());
   sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());

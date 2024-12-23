@@ -24,7 +24,21 @@ class _ImageCarouselState extends State<ImageCarousel> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.85);
+    _pageController = PageController(initialPage: 1000);
+    _currentPage = 1000 % widget.imageUrls.length;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(widget.autoPlayInterval, _autoPlay);
+    });
+  }
+
+  void _autoPlay() {
+    if (!mounted) return;
+    _pageController.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    Future.delayed(widget.autoPlayInterval, _autoPlay);
   }
 
   @override
@@ -39,22 +53,22 @@ class _ImageCarouselState extends State<ImageCarousel> {
       children: [
         SizedBox(
           height: widget.height,
-          width: widget.height * 0.85,
+          width: widget.height * 0.75,
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (index) {
               setState(() {
-                _currentPage = index;
+                _currentPage = index % widget.imageUrls.length;
               });
             },
-            itemCount: widget.imageUrls.length,
             itemBuilder: (context, index) {
+              final actualIndex = index % widget.imageUrls.length;
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.network(
-                    widget.imageUrls[index],
+                    widget.imageUrls[actualIndex],
                     fit: BoxFit.fill,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;

@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        title: "Klix ID",
         debugShowCheckedModeBanner: false,
         theme: AppTheme.appTheme,
         home: const SplashPage(),

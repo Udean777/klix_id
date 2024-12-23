@@ -9,6 +9,7 @@ import 'package:klix_id/service_locator.dart';
 abstract class AuthApiService {
   Future<Either> signUp(SignupReqParams params);
   Future<Either> signIn(SigninReqParams params);
+  Future<Either> signOut();
 }
 
 class AuthApiServiceImpl extends AuthApiService {
@@ -32,6 +33,19 @@ class AuthApiServiceImpl extends AuthApiService {
       var res = await sl<DioClient>().post(
         ApiUrl.signin,
         data: params.toMap(),
+      );
+
+      return Right(res.data);
+    } on DioException catch (e) {
+      return Left(e.response!.data["message"]);
+    }
+  }
+
+  @override
+  Future<Either> signOut() async {
+    try {
+      var res = await sl<DioClient>().post(
+        ApiUrl.signout,
       );
 
       return Right(res.data);
